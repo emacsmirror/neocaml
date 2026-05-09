@@ -4,8 +4,11 @@
 
 ### Bug fixes
 
-- [#42](https://github.com/bbatsov/neocaml/issues/42): Lower the tree-sitter ABI requirement for `neocaml-opam-mode` and `neocaml-dune-mode` from 15 to 14, so they work on Emacs built against tree-sitter 0.24 (e.g., the homebrew Emacs 30 on macOS). Switch the menhir grammar recipe to [tmcgilchrist/tree-sitter-menhir](https://github.com/tmcgilchrist/tree-sitter-menhir), which targets ABI 14 as well. The ocamllex grammar still requires ABI 15; tracking that upstream in [314eter/tree-sitter-ocamllex#16](https://github.com/314eter/tree-sitter-ocamllex/issues/16).
 - [#53](https://github.com/bbatsov/neocaml/issues/53): Capture stderr separately when running `dune format-dune-file`, so the `Entering directory` / `Leaving directory` markers newer dune versions emit on stderr no longer wrap the formatted buffer.
+
+### Changes
+
+- [#42](https://github.com/bbatsov/neocaml/issues/42): Lower the tree-sitter ABI requirement for `neocaml-opam-mode` and `neocaml-dune-mode` from 15 to 14, so they work on Emacs built against tree-sitter 0.24 (e.g., the homebrew Emacs 30 on macOS). Switch the menhir grammar recipe to [tmcgilchrist/tree-sitter-menhir](https://github.com/tmcgilchrist/tree-sitter-menhir), which targets ABI 14 as well. The ocamllex grammar still requires ABI 15; tracking that upstream in [314eter/tree-sitter-ocamllex#16](https://github.com/314eter/tree-sitter-ocamllex/issues/16).
 
 ## 0.8.0 (2026-04-10)
 

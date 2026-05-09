@@ -100,7 +100,7 @@ The extra symbols may affect column alignment."
   :package-version '(neocaml . "0.2.0"))
 
 (defcustom neocaml-redirect-build-files t
-  "When non-nil, offer to switch to the source file when opening a file under `_build/'.
+  "When non-nil, offer to switch to the source file from `_build/'.
 Set to nil if you work with build artifacts directly, e.g. when debugging."
   :type 'boolean
   :safe #'booleanp

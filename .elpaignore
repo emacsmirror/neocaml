@@ -1,8 +1,9 @@
-test/
-doc/
-docs/
+test
+doc
+docs
 mkdocs.yml
 Eldev
-.eldev/
-.github/
+.eldev
+.github
 CONTRIBUTING.md
+*-pkg.el

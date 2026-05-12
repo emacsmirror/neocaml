@@ -409,12 +409,15 @@ end"
       (expect (line-number-at-pos) :to-equal 1)))
 
   (it "jumps out of an optional parameter with default"
+    ;; On Emacs <=30 the manual walker stops at the parameter node start
+    ;; (the `?'); on Emacs 31+ `backward-up-list' finds the `(' via the
+    ;; syntax table first.  Both are reasonable, just verify we moved out.
     (with-neocaml-buffer "let bar ?(foo = 123) = assert false"
       (goto-char (point-min))
       (search-forward "123")
       (backward-char 2)
       (neocaml-backward-up-list)
-      (expect (char-after) :to-equal ??)))
+      (expect (memq (char-after) '(?? ?\()) :to-be-truthy)))
 
   (it "signals an error at the top level"
     (with-neocaml-buffer "let x = 1"

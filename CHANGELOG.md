@@ -4,6 +4,7 @@
 
 ### Bug fixes
 
+- [#57](https://github.com/bbatsov/neocaml/issues/57): Stop passing `-emacs` to utop in `neocaml-dune-utop` (and drop it from the recommended config in the docs). That flag activates utop's structured protocol intended for the old `utop.el`, which `neocaml-repl` doesn't implement, so the protocol output was leaking into the REPL buffer.
 - [#58](https://github.com/bbatsov/neocaml/issues/58): `neocaml-backward-up-list` now jumps out of optional parameters with defaults (e.g., `?(foo = 123)`) instead of erroring with "At top level".
 - [#53](https://github.com/bbatsov/neocaml/issues/53): Capture stderr separately when running `dune format-dune-file`, so the `Entering directory` / `Leaving directory` markers newer dune versions emit on stderr no longer wrap the formatted buffer.
 

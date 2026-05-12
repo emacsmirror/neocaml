@@ -112,8 +112,13 @@ You can configure this with `neocaml-repl-history-file` (set to
 
 ```emacs-lisp
 (setq neocaml-repl-program-name "utop")
-(setq neocaml-repl-program-args '("-emacs"))
 ```
+
+!!! note
+    Don't pass utop's `-emacs` flag; it activates a structured
+    protocol meant for the old `utop.el` integration, which
+    `neocaml-repl' doesn't implement.  Plain `utop` works fine with
+    the comint-based REPL.
 
 !!! note
     If Emacs can't find `utop` or `ocaml`, your shell `PATH` may not be

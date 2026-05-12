@@ -160,15 +160,15 @@ With prefix argument, run in watch mode."
 ;;;###autoload
 (defun neocaml-dune-utop ()
   "Run `dune utop' in the project root via `neocaml-repl'.
-Launches utop in Emacs mode with the project's libraries loaded,
-using the full REPL interaction (send region, send definition, etc.)."
+Launches utop with the project's libraries loaded, using the full
+REPL interaction (send region, send definition, etc.)."
   (interactive)
   (require 'neocaml-repl)
   (let* ((default-directory (neocaml-dune--project-root))
          (program (if neocaml-dune-use-opam-exec "opam" neocaml-dune-program))
          (args (if neocaml-dune-use-opam-exec
-                   (list "exec" "--" neocaml-dune-program "utop" "." "-emacs")
-                 (list "utop" "." "-emacs")))
+                   (list "exec" "--" neocaml-dune-program "utop" ".")
+                 (list "utop" ".")))
          (neocaml-repl-program-name program)
          (neocaml-repl-program-args args)
          (neocaml-repl-buffer-name "*OCaml-dune-utop*"))

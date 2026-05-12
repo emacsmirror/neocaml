@@ -849,7 +849,8 @@ ARG is as in `forward-sexp-function'."
     "package_type"
     "signature"
     "structure"
-    "class_body_type")
+    "class_body_type"
+    "parameter")
   "Tree-sitter node types treated as `list' things for navigation.")
 
 (defconst neocaml--list-node-regex

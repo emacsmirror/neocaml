@@ -910,6 +910,10 @@ simply delegates to it there."
       (backward-up-list arg t t)
     (let ((arg (or arg 1)))
       (dotimes (_ (abs arg))
+        ;; Consider both the nearest enclosing tree-sitter list node and
+        ;; the nearest syntactic delimiter, then jump to whichever is
+        ;; closer to point.  This matches the Emacs 31 built-in, which
+        ;; combines the two via `treesit-thing-settings'.
         (let* ((node (treesit-node-at (point)))
                (parent (treesit-parent-until
                         node
@@ -918,12 +922,26 @@ simply delegates to it there."
                                                (treesit-node-type n))
                                (if (< arg 0)
                                    (> (treesit-node-end n) (point))
-                                 (< (treesit-node-start n) (point))))))))
-          (unless parent
-            (user-error "At top level"))
-          (goto-char (if (< arg 0)
-                         (treesit-node-end parent)
-                       (treesit-node-start parent))))))))
+                                 (< (treesit-node-start n) (point)))))))
+               (tree-pos (and parent
+                              (if (< arg 0)
+                                  (treesit-node-end parent)
+                                (treesit-node-start parent))))
+               ;; Use `syntax-ppss' rather than `up-list': the OCaml
+               ;; syntax table treats `(' as both a paren and part of the
+               ;; `(*' comment delimiter, which confuses `up-list'.
+               (syn-pos (let ((open (nth 1 (syntax-ppss))))
+                          (cond ((null open) nil)
+                                ((< arg 0) (ignore-errors (scan-sexps open 1)))
+                                (t open))))
+               (target (cond ((and tree-pos syn-pos)
+                              (if (< arg 0)
+                                  (min tree-pos syn-pos)
+                                (max tree-pos syn-pos)))
+                             (t (or tree-pos syn-pos)))))
+          (if target
+              (goto-char target)
+            (user-error "At top level")))))))
 
 (defun neocaml-mark-sentence ()
   "Mark the current statement around point.
